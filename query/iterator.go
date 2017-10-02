@@ -9,6 +9,8 @@ import (
 
 	"regexp"
 
+	"context"
+
 	"github.com/gogo/protobuf/proto"
 	"github.com/influxdata/influxdb/influxql"
 	internal "github.com/influxdata/influxdb/query/internal"
@@ -660,7 +662,7 @@ func NewReaderIterator(r io.Reader, typ influxql.DataType, stats IteratorStats) 
 // IteratorCreator is an interface to create Iterators.
 type IteratorCreator interface {
 	// Creates a simple iterator for use in an InfluxQL query.
-	CreateIterator(source *influxql.Measurement, opt IteratorOptions) (Iterator, error)
+	CreateIterator(ctx context.Context, source *influxql.Measurement, opt IteratorOptions) (Iterator, error)
 
 	// Determines the potential cost for creating an iterator.
 	IteratorCost(source *influxql.Measurement, opt IteratorOptions) (IteratorCost, error)
